@@ -1,4 +1,3 @@
-
 struct PerlinNoiseGPU {
 private:
     __device__
@@ -14,4 +13,4 @@ public:
 };
 
 __global__
-void getNoiseArray(float* result, unsigned int size, const int* permutation, float scale = 1.0f);
+void getNoiseArray(float* result, unsigned int size, unsigned int offsetX, unsigned int offsetY, const int* permutation, float scale = 1.0f);

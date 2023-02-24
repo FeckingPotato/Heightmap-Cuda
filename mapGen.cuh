@@ -1,1 +1,1 @@
-void mapGen(float* result, unsigned int size, int seed, float scale = 1.0f);
+void mapGen(float* result, unsigned int size, unsigned int offsetX, unsigned int offsetY, int seed, float scale = 1.0f);

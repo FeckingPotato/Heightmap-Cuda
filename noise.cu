@@ -1,4 +1,4 @@
-#include "PerlinNoiseGPU.cuh"
+#include "noise.cuh"
 
 __device__
 float PerlinNoiseGPU::fade(float t) {
@@ -52,13 +52,13 @@ float PerlinNoiseGPU::getNoise(float x, float y, float z, const int* permutation
 }
 
 __global__
-void getNoiseArray(float* result, unsigned int size, const int* permutation, float scale) {
+void getNoiseArray(float* result, unsigned int size, unsigned int offsetX, unsigned int offsetY, const int* permutation, float scale) {
     for (unsigned int i = blockIdx.x * blockDim.x + threadIdx.x; i < size; i += blockDim.x * gridDim.x)
     {
         for (unsigned int j = blockIdx.y * blockDim.y + threadIdx.y; j < size; j += blockDim.y * gridDim.y)
         result[i*size+j] = PerlinNoiseGPU::getNoise(
-                scale * ((float) i) / ((float) size),
-                scale * ((float) j) / ((float) size),
+                scale * ((float) (i+offsetX)) / ((float) size),
+                scale * ((float) (j+offsetY)) / ((float) size),
                 0.0, permutation);
     }
 };

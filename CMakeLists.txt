@@ -4,7 +4,7 @@ project(heightmap CUDA)
 set(CMAKE_CUDA_STANDARD 17)
 set(CMAKE_CUDA_FLAGS "-G")
 
-add_executable(heightmap main.cu noise.cu PerlinNoiseGPU.cuh mapGen.cu mapGen.cuh)
+add_executable(heightmap main.cu noise.cu noise.cuh mapGen.cu mapGen.cuh)
 
 find_package(OpenGL REQUIRED)
 find_package(GLU REQUIRED)
