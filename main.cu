@@ -2,9 +2,10 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <string>
+#include <fstream>
 #include "mapGen.cuh"
 
-const static long size = 512;
+const static long size = 1024;
 const static int seed = 5617;
 
 float* vertices;
@@ -103,6 +104,15 @@ void input (unsigned char key, int x, int y) {
             break;
         case 'D':
             move(10, 0);
+            break;
+        case 'p':
+            std::ofstream file;
+            file.open("heightmap.pgm");
+            file << "P5 " << size << " " << size << " " << 65535 << std::endl;
+            for (int i = 0; i < size*size; i++) {
+                short temp = vertices[i]*65536+32767;
+                file.write(reinterpret_cast<const char*>(&temp), 2);
+            }
             break;
     }
 }
